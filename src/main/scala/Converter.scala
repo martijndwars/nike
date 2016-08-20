@@ -7,14 +7,10 @@ object Converter {
     <gpx creator="Nike+ Export">
       <trk>
         <trkseg>
-          {activity.metricsByPosition.map { case (lat, lon, ele, time) =>
+          {activity.metricsByPosition.map { case (time, lat, lon, ele) =>
             <trkpt lat={lat.toString} lon={lon.toString}>
-              <time>
-                {ISODateTimeFormat.dateTimeNoMillis().print(time._1)}
-              </time>
-              <ele>
-                {ele}
-              </ele>
+              <time>{ISODateTimeFormat.dateTimeNoMillis().print(time._1)}</time>
+              {if (ele.isDefined) <ele>{ele.get}</ele>}
             </trkpt>
           }}
         </trkseg>
